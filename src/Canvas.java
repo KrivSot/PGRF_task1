@@ -20,7 +20,6 @@ public class Canvas {
     boolean dashedline = false;
     boolean triangle;
     private List<Line> lines = new ArrayList<>();
-    //private Polygon polygon = new Polygon();
     private List<Point> polygon = new ArrayList<>();
     KeyListener keyListener;
     MouseAdapter mouse;
@@ -109,7 +108,7 @@ public class Canvas {
                 endX = e.getX();
                 endY = e.getY();
                 switch(choice){
-                    case "Polygon": renderer.Draw((int) polygon.get(polygon.size()).getX(), (int) polygon.get(polygon.size()).getY(),endX,endY);
+                    case "Polygon": renderer.Draw((int) polygon.get(polygon.size()-1).getX(), (int) polygon.get(polygon.size()-1).getY(),endX,endY);
                         if(polygon.size()-1 > 1) renderer.Draw((int) polygon.get(0).getX(),(int) polygon.get(0).getY(),endX,endY);
                         break;
                     case "Line":
