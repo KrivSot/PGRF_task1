@@ -17,7 +17,7 @@ public class Canvas {
     JFrame frame;
     JPanel panel;
     BufferedImage img;
-    boolean dashedline = true;
+    boolean dashedline = false;
     boolean triangle;
     private List<Line> lines = new ArrayList<>();
     //private Polygon polygon = new Polygon();
