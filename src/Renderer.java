@@ -11,65 +11,44 @@ public class Renderer {
         this.color = color;
     }
 
-    public void Draw(int xA, int yA, int xB, int yB) {
+    public void Draw(int x1, int y1, int x2, int y2) {
 
-        // vypocet pro smernici
-        double dx = xB - xA;
-        double dy = yB - yA;
+        float k = (float) (y2 - y1) / (x2 - x1); // tangens (úhel směrnice)
+        float q = (y1 - k * x1);
 
-        if (Math.abs(yB - yA) <= Math.abs(xB - xA)) {
-
-            // Pro jeden bod
-            if ((xA == xB) && (yA == yB)) {
-                img.setRGB(xA, yA, 0xffff0000);
-            } else {
-
-                // prohozeni vodicich os
-                if (xB < xA) {
-                    int pomoc = xB;
-                    xB = xA;
-                    xA = pomoc;
-
-                    pomoc = yB;
-                    yB = yA;
-                    yA = pomoc;
+        if (x1 == x2) {
+            if (y2 > y1) {      // dolní vertikální úsečka
+                for (int y = y1; y <= y2; y++) {
+                    img.setRGB(x1, y, color);
                 }
-
-                // vypocet
-                double k = (double) dy / dx;
-                int int_y;
-                double y = (double) yA;
-
-                // tisk img
-                for (int x = xA; x <= xB; x++) {
-                    int_y = (int) Math.round(y);
-                    img.setRGB(x, int_y, 0xffff0000);
-                    y += k;
+            } else {            // horní vertikální úsečka
+                for (int y = y2; y <= y1; y++) {
+                    img.setRGB(x1, y, color);
                 }
             }
         } else {
+            if (k <= 1 && k >= -1) {
+                if (x1 > x2) { // prohození pořadí proměných, aby x1 bylo menší
+                    int temp = x1;
+                    x1 = x2;
+                    x2 = temp;
 
-            // prohozeni vodicich os
-            if (yB < yA) {
-                int pomoc = xB;
-                xB = xA;
-                xA = pomoc;
+                }
+                for (int x = x1; x <= x2; x++) {
+                    int y = Math.round(k * x + q);
+                    img.setRGB(x, y, color);
+                }
+            } else {
+                if (y1 > y2) { // prohození pořadí proměných, aby y1 bylo menší
 
-                pomoc = yB;
-                yB = yA;
-                yA = pomoc;
-            }
-
-            // vypocet
-            double k = (double) dx / dy;
-            int int_x;
-            double x = (double) xA;
-
-            // tisk img
-            for (int y = yA; y <= yB; y++) {
-                int_x = (int) Math.round(x);
-                img.setRGB(int_x, y, 0xffff0000);
-                x += k;
+                    int temp = y1;
+                    y1 = y2;
+                    y2 = temp;
+                }
+                for (int y = y1; y <= y2; y++) {
+                    int x = Math.round((y - q) / k);
+                    img.setRGB(x, y, color);
+                }
             }
         }
     }
