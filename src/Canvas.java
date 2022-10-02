@@ -60,11 +60,11 @@ public class Canvas {
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode())
                 {
+                    case KeyEvent.VK_C: clear(CLEAR_COLOR, true); present(); break;
                     case KeyEvent.VK_K: if(choice == "Line")
                         choice = "Polygon";
-                    else choice = "Line"; break;
-                    case KeyEvent.VK_C: clear(CLEAR_COLOR, true); present(); break;
-                    case KeyEvent.VK_T: break;
+                        else choice = "Line"; break;
+                    case KeyEvent.VK_T: triangle = !triangle; break;
                     default: break;
                 }
             }
